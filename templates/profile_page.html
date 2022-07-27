@@ -1,0 +1,79 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+    {% for post in qs %}      
+    <div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>
+        <span class="w3-right w3-opacity">{{ post.created|date:"d/m/Y H:i" }}</span>
+        <h4>{{ post.user }}</h4>
+        <hr class="w3-clear">
+        <p>{{ post.content }}</p>
+    </div>
+    <br>
+    {% empty %}
+    <div class="w3-container w3-card w3-white w3-round w3-margin-left w3-margin-right"><br>
+        <p>Nothing to show</p>
+    </div>
+    {% endfor %}
+{% endblock content %}
+
+
+{% block profilecontent %}  
+    <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+        <h4 class="w3-center">{{ profile }}'s Profile</h4>
+        <hr>
+        <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+        <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+        <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+        </div>
+    </div>
+    <br>
+{% endblock profilecontent %}
+
+
+{% block followingcontent %}  
+    <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+            <h4 class="w3-center">Following</h4>
+            <hr>    
+                {% for following in profile.follows.all  %}
+                    <p style="text-align:center">{{ following }}</p>
+                {% endfor %}
+        </div>
+    </div>
+    <br>
+{% endblock followingcontent %}
+
+
+{% block followercontent %}  
+    <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+            <h4 class="w3-center">Follower</h4>
+            <hr>  
+                {% for follower in profile.followed_by.all  %}
+                    <p style="text-align:center">{{ follower }}</p>
+                {% endfor %}
+        </div>
+    </div>
+    <br>
+{% endblock followercontent %}
+
+
+{% block followbutton %}
+    <form method="post">
+        {% csrf_token %}
+        <div class="w3-container w3-center">
+            {% if profile == request.user.profile %}
+            
+            {% elif profile in request.user.profile.follows.all %}
+                <!-- <button class="w3-button w3-green">Following</button> -->
+                <button class="w3-button w3-red" name="follow" value="unfollow">Unfollow</button>
+            {% elif profile not in request.user.profile.follows.all %}
+                <button class="w3-button w3-green" name="follow" value="follow">Follow</button>
+                <!-- <button class="w3-button w3-red">Unfollow</button> -->    
+            {% endif %}
+        </div>
+        <br>
+    </form>
+{% endblock followbutton %}

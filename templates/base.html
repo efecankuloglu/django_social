@@ -1,0 +1,107 @@
+{% load crispy_forms_tags %}
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Django Social</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://www.w3schools.com/lib/w3-theme-blue-grey.css">
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Open+Sans'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<!-- <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css"> -->
+<style>
+  html, body, h1, h2, h3, h4, h5 {font-family: "Open Sans", sans-serif}
+</style>
+</head>
+<body class="w3-theme-l5">
+<!-- Page Container -->
+<div class="w3-container w3-content" style="max-width:1400px; margin-top:80px;">    
+  <!-- The Grid -->
+  <div class="w3-row">
+    <!-- Left Column -->
+    <div class="w3-col m3">
+      <!-- Profile -->
+      <!-- <div class="w3-card w3-round w3-white">
+        <div class="w3-container">
+         <h4 class="w3-center">My Profile</h4>
+         <hr>
+         <p><i class="fa fa-pencil fa-fw w3-margin-right w3-text-theme"></i> Designer, UI</p>
+         <p><i class="fa fa-home fa-fw w3-margin-right w3-text-theme"></i> London, UK</p>
+         <p><i class="fa fa-birthday-cake fa-fw w3-margin-right w3-text-theme"></i> April 1, 1988</p>
+        </div>
+      </div>
+      <br> -->
+      <!-- Menu -->
+      <div class="w3-card w3-round w3-white w3-center">
+        {% if request.user.is_authenticated %}
+          <div class="w3-container w3-padding-16" style="text-align:center">
+            <a href="{% url 'social:main-page' %}">Homepage</a>
+          </div>
+          <div class="w3-container w3-padding-16" style="text-align:center">
+            <a href="{% url 'social:profile' request.user %}">Profile</a>
+          </div>
+          <div class="w3-container w3-padding-16" style="text-align:center">
+            <a href="{% url 'logout' %}">Logout</a>
+          </div>
+        {% else %}
+          <div class="w3-container w3-padding-16" style="text-align:center">
+            <a href="{% url 'login' %}">Login</a>
+          </div>
+          <div class="w3-container w3-padding-16" style="text-align:center">
+            <a href="{% url 'signup' %}">Signup</a>
+          </div>
+        {% endif %}
+      </div>
+      <br>
+    </div>
+    
+    <!-- Middle Column -->
+    <div class="w3-col m6">
+      {% block formcontent %}
+      {% endblock formcontent %}
+
+      {% block content %}
+      {% endblock content %}
+    <!-- End Middle Column -->
+    </div>
+    
+    <!-- Right Column -->
+    <div class="w3-col m3">
+      {% block usercontent %}
+      {% endblock usercontent %}      
+
+      {% block profilecontent %}
+      {% endblock profilecontent %}
+
+      {% block followbutton %}
+      {% endblock followbutton %}
+
+      {% block followingcontent %}
+      {% endblock followingcontent %}
+
+      {% block followercontent %}
+      {% endblock followercontent %}
+            
+    <!-- End Right Column -->
+    </div>
+    
+  <!-- End Grid -->
+  </div>
+  
+<!-- End Page Container -->
+</div>
+<br>
+
+<!-- Footer -->
+<!-- <footer class="w3-container w3-theme-d3 w3-padding-16">
+  <h5>Footer</h5>
+</footer>
+
+<footer class="w3-container w3-theme-d5">
+  <p>Powered by <a href="https://www.w3schools.com/w3css/default.asp" target="_blank">w3.css</a></p>
+</footer> -->
+ 
+</body>
+</html> 
